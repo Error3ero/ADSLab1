@@ -10,29 +10,23 @@ public class Task6A {
         roads[0] = 1;
         dp[0] = 0;
         for (int i = 0; i < n; i++) {
-            if (roads[i] == 0) {
+            if (roads[i] == 0 || data[i] == 'w') {
                 continue;
             }
             if (data[i] == '"') {
                 dp[i]++;
             }
-            if (i + 1 < n) {
-                if (data[i + 1] != 'w') {
+            if (i + 1 < n && data[i + 1] != 'w') {
                     roads[i + 1] += roads[i];
                     dp[i + 1] += dp[i];
-                }
             }
-            if (i + 3 < n) {
-                if (data[i + 3] != 'w') {
+            if (i + 3 < n && data[i + 3] != 'w') {
                     roads[i + 3] += roads[i];
                     dp[i + 3] += dp[i];
-                }
             }
-            if (i + 5 < n) {
-                if (data[i + 5] != 'w') {
+            if (i + 5 < n && data[i + 5] != 'w') {
                     roads[i + 5] += roads[i];
                     dp[i + 5] += dp[i];
-                }
             }
         }
         if (roads[n - 1] == 0) {

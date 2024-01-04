@@ -6,11 +6,11 @@ public class Task2C {
         int n = sc.nextInt();
         double a = Double.parseDouble(sc.next().replace(',', '.'));
         sc.close();
-        double l = 0;
+        double l = 0.01;
         double r = a;
         double[] h = new double[n];
         h[0] = a;
-        while (r - l > 0.0000000000001) {
+        while (r - l > 0.0000001) {
             h[1] = (l + r) / 2;
             boolean isUp = true;
             for (int i = 2; i < n; i++) {
@@ -28,6 +28,10 @@ public class Task2C {
             }
         }
         String s = Long.toString((long) (h[n - 1] * 100));
+        if (s.equals("0")) {
+            System.out.println("0.01");
+            return;
+        }
         if (s.substring(0, s.length() - 2).isEmpty()) {
             s = "0" + s;
         }
