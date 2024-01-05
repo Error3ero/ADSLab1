@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Task6A {
@@ -5,34 +6,36 @@ public class Task6A {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
         char[] data = sc.next().toCharArray();
-        long[] dp = new long[n];
-        long[] roads = new long[n];
-        roads[0] = 1;
+        sc.close();
+        int[] dp = new int[n];
+        Arrays.fill(dp, -1);
         dp[0] = 0;
         for (int i = 0; i < n; i++) {
-            if (roads[i] == 0 || data[i] == 'w') {
+            if (data[i] == 'w' || dp[i] == -1) {
                 continue;
             }
             if (data[i] == '"') {
                 dp[i]++;
             }
             if (i + 1 < n && data[i + 1] != 'w') {
-                    roads[i + 1] += roads[i];
-                    dp[i + 1] += dp[i];
+                if (dp[i + 1] == -1) {
+                    dp[i + 1]++;
+                }
+                dp[i + 1] = Integer.max(dp[i], dp[i + 1]);
             }
             if (i + 3 < n && data[i + 3] != 'w') {
-                    roads[i + 3] += roads[i];
-                    dp[i + 3] += dp[i];
+                if (dp[i + 3] == -1) {
+                    dp[i + 3]++;
+                }
+                dp[i + 3] = Integer.max(dp[i], dp[i + 3]);
             }
             if (i + 5 < n && data[i + 5] != 'w') {
-                    roads[i + 5] += roads[i];
-                    dp[i + 5] += dp[i];
+                if (dp[i + 5] == -1) {
+                    dp[i + 5]++;
+                }
+                dp[i + 5] = Integer.max(dp[i], dp[i + 5]);
             }
         }
-        if (roads[n - 1] == 0) {
-            System.out.println(-1);
-        } else {
-            System.out.println(dp[n - 1]);
-        }
+        System.out.println(dp[n - 1]);
     }
 }
